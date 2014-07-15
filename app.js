@@ -1,22 +1,39 @@
 $(document).ready(function () {
-	var num = prompt('Choose a Number between 1-100');
-	if (num > 100 || num < 1) {
-		do {
-		num = prompt('The Number must be between 1-100. Try again')
-	} while (num > 100 || num < 1);
-	};
-	for (i = 1; i <= num; i++) {
-		if (i%3 === 0 && i%5 === 0) {
-			$('#output').append("FizzBuzz" + "<br>");
+
+	$('#value').submit(function(e) {
+		e.preventDefault();
+		var num = +$(this).children('input').val();
+		if (num < 1 || num > 100) {
+			alert('Make sure you enter a number between 1-100');
+			$(this).children('input').val("");
 		}
-		else if (i%3 === 0) {
-			$('#output').append("Fizz" + "<br>");
+		else if (isNaN(num)) {
+			alert('Make sure you Enter a number.');
+			$(this).children('input').val("");
 		}
-		else if (i%5 === 0) {
-			$('#output').append("Buzz" + "<br>");
+		else if (num % 1 != 0) {
+			alert('Please enter a whole number.');
+			$(this).children('input').val("");
 		}
 		else {
-			$('#output').append(i + "<br>");
+			fizzBuzz(num);
 		}
-	};
+	});
+	
+	var fizzBuzz = function(userInput) {
+		for (i = 1; i <= userInput; i++) {
+			if (i%3 === 0 && i%5 === 0) {
+				$('#output').append("FizzBuzz" + "<br>");
+			}
+			else if (i%3 === 0) {
+				$('#output').append("Fizz" + "<br>");
+			}
+			else if (i%5 === 0) {
+				$('#output').append("Buzz" + "<br>");
+			}
+			else {
+				$('#output').append(i + "<br>");
+			}
+		}
+	}
 });
